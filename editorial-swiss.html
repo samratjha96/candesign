@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+ABOUTME: This file demonstrates the Editorial / Swiss Style aesthetic for an art exhibition theme.
+ABOUTME: It focuses on strict grids, massive typography, negative space, and hierarchy.
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODERNA - Art Exhibition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        :root {
+            --black: #111;
+            --white: #fff;
+            --red: #D00000;
+            --grey: #f4f4f4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.4;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            min-height: 100vh;
+            border-left: 1px solid var(--black);
+            border-right: 1px solid var(--black);
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* Decorative Grid Lines */
+        .grid-line {
+            grid-column: span 1;
+            border-right: 1px solid rgba(0,0,0,0.05);
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        /* Ensure content sits on top of lines */
+        .content-layer {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            z-index: 2;
+        }
+
+        /* Header Section */
+        header {
+            grid-column: 1 / -1;
+            padding: 40px;
+            border-bottom: 1px solid var(--black);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .date {
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        /* Hero Typography */
+        .hero {
+            grid-column: 2 / 12;
+            padding: 100px 0;
+        }
+
+        h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            margin: 0;
+            font-weight: 400; /* Swiss style often uses regular weight for big display */
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto; /* Align right side of the container */
+            display: block;
+        }
+
+        /* Divider */
+        hr {
+            grid-column: 1 / -1;
+            border: 0;
+            border-top: 1px solid var(--black);
+            margin: 0;
+            width: 100%;
+        }
+
+        /* Information Section */
+        .info-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .col-left {
+            grid-column: 1 / 7;
+            border-right: 1px solid var(--black);
+            padding: 40px;
+            background-color: var(--red);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            aspect-ratio: 1/1;
+        }
+
+        .col-right {
+            grid-column: 7 / -1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .col-left, .col-right {
+                grid-column: 1 / -1;
+                border-right: none;
+                aspect-ratio: auto;
+                min-height: 300px;
+            }
+            .col-left {
+                border-bottom: 1px solid var(--black);
+            }
+        }
+
+        /* Shape */
+        .circle {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin: 0 0 20px 0;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1.1rem;
+            max-width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--black);
+            padding: 15px 30px;
+            text-decoration: none;
+            color: var(--black);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            width: fit-content;
+        }
+
+        .btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            grid-column: 1 / -1;
+            border-top: 1px solid var(--black);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Typography Helper */
+        .vertical-text {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Asymmetric Element */
+        .floating-box {
+            grid-column: 9 / 12;
+            padding: 20px;
+            border: 1px solid var(--black);
+            margin-top: -50px; /* Overlap */
+            background: var(--white);
+            z-index: 10;
+        }
+
+        @media (max-width: 900px) {
+            .floating-box {
+                grid-column: 2 / 12;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+        <!-- Visual Grid Lines (Background layer) -->
+        <div style="position: absolute; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(12, 1fr); max-width: 1440px; z-index: 0; pointer-events: none;">
+            <div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div>
+            <div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div>
+            <div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div>
+            <div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div>
+        </div>
+
+        <div class="content-layer">
+            <header>
+                <div class="logo">MODERNA®</div>
+                <div class="date">
+                    DEC 12 — JAN 20<br>
+                    ZURICH
+                </div>
+            </header>
+
+            <section class="hero">
+                <h1>FORM<br>FOLLOWS<br>FUNCTION</h1>
+                <span class="subtitle">
+                    An exploration of international typographic style and the grid system in contemporary digital mediums.
+                </span>
+            </section>
+
+            <hr>
+
+            <div class="info-section">
+                <div class="col-left">
+                    <div class="circle"></div>
+                    <div>
+                        <div style="font-size: 5rem; line-height: 1; font-weight: 700;">Aa</div>
+                        <div style="margin-top: 20px;">HALL 04</div>
+                    </div>
+                </div>
+                <div class="col-right">
+                    <h2>The Objectivity of Grid Design</h2>
+                    <p>
+                        The grid system is an aid, not a guarantee. It permits a number of possible uses and each designer can look for a solution appropriate to his personal style. But one must learn how to use the grid; it is an art that requires practice.
+                    </p>
+                    <a href="#" class="btn">View Gallery</a>
+                </div>
+            </div>
+            
+            <div class="floating-box">
+                <strong>FEATURED ARTIST</strong><br><br>
+                Josef Müller-Brockmann<br>
+                Wim Crouwel<br>
+                Massimo Vignelli
+            </div>
+
+            <footer>
+                <div>EST. 1957</div>
+                <div>DESIGN / AESTHETICS</div>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>

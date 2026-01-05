@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: High-end Quiet Luxury aesthetic. Understated elegance, heritage vibes, and rich textures. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kensington Heritage | Quiet Luxury</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F5F2EA;
+            --navy: #1B2432;
+            --charcoal: #2C2C2C;
+            --gold-muted: #A89F91;
+            --border: #DCD6CC;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--cream);
+            color: var(--navy);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--navy);
+            color: var(--cream);
+            text-align: center;
+            padding: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover { color: var(--navy); }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-content {
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--gold-muted);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            font-weight: 300;
+            margin-bottom: 32px;
+        }
+
+        .lead {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #555;
+            max-width: 400px;
+            margin-bottom: 48px;
+        }
+
+        .btn-heritage {
+            display: inline-block;
+            padding: 18px 48px;
+            border: 1px solid var(--navy);
+            background: transparent;
+            color: var(--navy);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+
+        .btn-heritage:hover {
+            background-color: var(--navy);
+            color: var(--cream);
+        }
+
+        /* Visual Side */
+        .hero-visual {
+            background-color: #E6E2D8;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Abstract garment representation */
+        .garment {
+            width: 300px;
+            height: 400px;
+            background-color: #D6CEC5;
+            position: relative;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+        }
+        
+        .garment::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .monogram-bg {
+            position: absolute;
+            font-size: 20rem;
+            color: rgba(27, 36, 50, 0.03);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Featured Grid */
+        .featured {
+            padding: 80px 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px; /* Borders created by gap */
+            background-color: var(--border);
+        }
+
+        .product-card {
+            background-color: var(--cream);
+            padding: 40px;
+            text-align: center;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            background-color: #FCFAF5;
+        }
+
+        .product-img {
+            height: 250px;
+            background-color: #EAE6DE;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+        }
+
+        .product-cat {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gold-muted);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .product-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--navy);
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 120px 60px;
+            text-align: center;
+            background-color: var(--navy);
+            color: var(--cream);
+        }
+
+        blockquote {
+            font-size: 2.5rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            line-height: 1.3;
+        }
+
+        cite {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--gold-muted);
+            font-style: normal;
+        }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-content { border-right: none; border-bottom: 1px solid var(--border); padding: 40px; }
+            .featured { grid-template-columns: 1fr; }
+            nav { padding: 20px; flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">Complimentary Shipping on Global Orders Over $500</div>
+
+    <nav>
+        <div class="logo">Kensington & Co.</div>
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-item">New Arrivals</a></li>
+            <li><a href="#" class="nav-item">The Cashmere Edit</a></li>
+            <li><a href="#" class="nav-item">Leather Goods</a></li>
+            <li><a href="#" class="nav-item">Maison</a></li>
+        </ul>
+        <div class="nav-menu">
+            <li><a href="#" class="nav-item">Search</a></li>
+            <li><a href="#" class="nav-item">Account</a></li>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">Autumn / Winter 2024</span>
+            <h1>The Art of <br>Understatement.</h1>
+            <p class="lead">Defining modern heritage through uncompromising quality and timeless silhouettes. Crafted in Italy from the world's finest vicuña and silk.</p>
+            <a href="#" class="btn-heritage">Explore The Collection</a>
+        </div>
+        <div class="hero-visual">
+            <span class="monogram-bg">K&C</span>
+            <div class="garment">
+                <!-- Abstract coat/scarf representation -->
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: #2C2C2C;"></div>
+                <div style="position: absolute; top: 20%; left: 10%; width: 80%; height: 10px; background: #A89F91;"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="featured">
+        <div class="product-card">
+            <span class="product-cat">Outerwear</span>
+            <div class="product-img">The Trench</div>
+            <h3 class="product-title">Double-Breasted Wool</h3>
+            <span class="product-price">$2,450</span>
+        </div>
+        <div class="product-card">
+            <span class="product-cat">Knitwear</span>
+            <div class="product-img">The Cable</div>
+            <h3 class="product-title">Royal Alpaca Blend</h3>
+            <span class="product-price">$890</span>
+        </div>
+        <div class="product-card">
+            <span class="product-cat">Accessories</span>
+            <div class="product-img">The Weekender</div>
+            <h3 class="product-title">Grain Leather Tote</h3>
+            <span class="product-price">$3,200</span>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <blockquote>"True luxury whispers. It is found in the silence of perfection and the weight of history."</blockquote>
+        <cite>— The Atelier Journal</cite>
+    </section>
+
+</body>
+</html>

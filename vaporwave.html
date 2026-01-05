@@ -1,0 +1,211 @@
+<!-- ABOUTME: Implements the 'Vaporwave' aesthetic (1980s/90s nostalgia/glitch). -->
+<!-- ABOUTME: Features neon pinks/cyans, grids, gradients, and retro windows. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaporwave Aesthetics</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2b002b;
+            font-family: "Courier New", Courier, monospace;
+            overflow: hidden;
+            height: 100vh;
+            color: #fff;
+            perspective: 800px;
+        }
+
+        /* The Sun */
+        .sun {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(to bottom, #FFD700 0%, #FF00FF 50%, #8A2BE2 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px #FF00FF;
+            z-index: 1;
+            /* Simple "blinds" effect via clip-path or repeating gradient mask could go here, 
+               but CSS gradients are easier for a single file */
+            -webkit-mask-image: linear-gradient(to bottom, 
+                black 0%, black 70%, 
+                transparent 70%, transparent 72%, 
+                black 72%, black 75%, 
+                transparent 75%, transparent 78%,
+                black 78%, black 82%,
+                transparent 82%, transparent 86%,
+                black 86%, black 91%,
+                transparent 91%, transparent 97%,
+                black 97%
+            );
+            mask-image: linear-gradient(to bottom, 
+                 black 0%, black 70%, 
+                transparent 70%, transparent 72%, 
+                black 72%, black 75%, 
+                transparent 75%, transparent 78%,
+                black 78%, black 82%,
+                transparent 82%, transparent 86%,
+                black 86%, black 91%,
+                transparent 91%, transparent 97%,
+                black 97%
+            );
+        }
+
+        /* The Grid Floor */
+        .grid {
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(255, 0, 255, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.4) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: rotateX(60deg);
+            z-index: 0;
+            animation: moveGrid 10s linear infinite;
+            box-shadow: 0 0 100px rgba(255, 0, 255, 0.5);
+            /* Fade out towards horizon */
+            -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
+            mask-image: linear-gradient(to top, black 60%, transparent 100%);
+        }
+
+        @keyframes moveGrid {
+            0% { transform: rotateX(60deg) translateY(0); }
+            100% { transform: rotateX(60deg) translateY(40px); }
+        }
+
+        /* Stars */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background-image: 
+                radial-gradient(white 1px, transparent 1px),
+                radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px, 100px 100px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        /* Floating Window (Win95 Style) */
+        .retro-window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+            z-index: 10;
+            color: black;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            padding: 4px;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-bar-buttons span {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: #c0c0c0;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #404040;
+            border-bottom: 1px solid #404040;
+            margin-left: 2px;
+            box-shadow: 1px 1px 0 black;
+        }
+
+        .window-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #FF00FF;
+            text-shadow: 2px 2px 0px #00FFFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .japanese {
+            font-family: "MS Gothic", sans-serif;
+            font-size: 1.5em;
+            color: #000;
+        }
+        
+        button.retro-btn {
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            padding: 5px 15px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        button.retro-btn:active {
+            border-top: 2px solid #404040;
+            border-left: 2px solid #404040;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            transform: translate(1px, 1px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+    <div class="sun"></div>
+    <div class="grid"></div>
+
+    <div class="retro-window">
+        <div class="title-bar">
+            <span>ERROR_404.exe</span>
+            <div class="title-bar-buttons">
+                <span></span><span></span>
+            </div>
+        </div>
+        <div class="window-content">
+            <h1>Aesthetics</h1>
+            <div class="japanese">リサフランク420</div>
+            <p>DATA_STREAM_LOST...</p>
+            <button class="retro-btn">REBOOT SYSTEM</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 
+    ABOUTME: Dark Mode Design Aesthetic - "Obsidian" Code Editor
+    ABOUTME: True black themes, high contrast neon accents, and a technical/developer focus.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsidian - Dev Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #000000;
+            --bg-panel: #0d0d0d;
+            --border: #333333;
+            --primary: #bb86fc; /* Purple */
+            --secondary: #03dac6; /* Teal */
+            --accent: #cf6679; /* Pinkish Red */
+            --text-main: #e0e0e0;
+            --text-dim: #757575;
+            --code-green: #a6e22e;
+            --code-blue: #66d9ef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand span { color: var(--secondary); }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* Main Layout */
+        main {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            flex-grow: 1;
+        }
+
+        /* Sidebar */
+        aside {
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+        }
+
+        .file-tree {
+            list-style: none;
+            color: var(--text-dim);
+        }
+
+        .file-tree li {
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-tree li:hover { color: #fff; }
+        .file-tree li.active { color: var(--secondary); background: rgba(3, 218, 198, 0.1); padding: 4px; border-radius: 4px; }
+        
+        .folder { color: var(--primary); font-weight: 600; margin-top: 15px; margin-bottom: 5px; display: block; }
+
+        /* Editor Area */
+        .editor-area {
+            padding: 40px;
+            position: relative;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-dim);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 14px 28px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 15px rgba(187, 134, 252, 0.5);
+        }
+
+        /* Code Snippet Window */
+        .code-window {
+            background: #151515;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0;
+            font-family: 'Fira Code', monospace;
+            margin-top: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 700px;
+        }
+
+        .window-header {
+            background: var(--bg-panel);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .code-content {
+            padding: 20px;
+            color: #d4d4d4;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .kwd { color: var(--primary); }
+        .str { color: var(--code-green); }
+        .fn { color: var(--code-blue); }
+        .num { color: var(--secondary); }
+        .comment { color: var(--text-dim); font-style: italic; }
+
+        /* Glowing effect elements */
+        .glow-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(187, 134, 252, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: 20%;
+            right: 10%;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            main { grid-template-columns: 1fr; }
+            aside { display: none; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .editor-area { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">&lt;Obsidian <span>/&gt;</span></div>
+        <nav class="nav-links">
+            <a href="#" class="active">Platform</a>
+            <a href="#">Docs</a>
+            <a href="#">Pricing</a>
+            <a href="#">Sign In</a>
+        </nav>
+    </header>
+
+    <main>
+        <aside>
+            <div class="folder">EXPLORER</div>
+            <ul class="file-tree">
+                <li class="folder">▼ src</li>
+                <li class="active">&nbsp;&nbsp; main.rs</li>
+                <li>&nbsp;&nbsp; utils.py</li>
+                <li>&nbsp;&nbsp; config.json</li>
+                <li class="folder">▼ tests</li>
+                <li>&nbsp;&nbsp; unit_test.js</li>
+            </ul>
+        </aside>
+
+        <section class="editor-area">
+            <div class="glow-orb"></div>
+            
+            <div class="hero-text">
+                <h1>Code at the<br>Speed of Thought.</h1>
+                <p>An integrated development environment designed for high-performance engineering. Zero latency, true black mode, and AI-powered refactoring.</p>
+                <button class="cta-button">INIT_WORKSPACE</button>
+            </div>
+
+            <div class="code-window">
+                <div class="window-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="kwd">async function</span> <span class="fn">deploySystem</span>() {<br>
+                    &nbsp;&nbsp;<span class="comment">// Initializing core systems</span><br>
+                    &nbsp;&nbsp;<span class="kwd">const</span> status = <span class="kwd">await</span> <span class="fn">checkMetrics</span>();<br>
+                    <br>
+                    &nbsp;&nbsp;<span class="kwd">if</span> (status === <span class="str">"OPTIMAL"</span>) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: <span class="num">99.99</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;latency: <span class="str">"12ms"</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                    &nbsp;&nbsp;}<br>
+                    }
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

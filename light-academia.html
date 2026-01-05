@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: Light Academia design implementation with airy, classical museum vibes -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Academia Aesthetic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDFBF7;
+            --beige: #F3EFE0;
+            --coffee: #8C7B70;
+            --soft-gold: #D4AF37;
+            --charcoal: #333333;
+            --marble: #FAFAFA;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--charcoal);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--beige);
+            padding: 40px;
+            border-right: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 60px 80px;
+            background-color: var(--marble);
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--coffee);
+            margin-top: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin-top: 60px;
+        }
+
+        .nav-links li {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--soft-gold);
+            font-style: italic;
+        }
+
+        .statue-img {
+            width: 100%;
+            height: 200px;
+            background-color: #e0ded5;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--coffee);
+            font-family: 'Lora', serif;
+            font-style: italic;
+            border-radius: 4px; /* Slight rounding */
+        }
+
+        article {
+            max-width: 700px;
+        }
+
+        p {
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+            padding: 0 2px;
+        }
+
+        .highlight:hover {
+            background-size: 100% 100%;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .note-card {
+            background-color: white;
+            padding: 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+
+        .note-card h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: var(--coffee);
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--coffee);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Initial cap */
+        .drop-cap {
+            float: left;
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            line-height: 0.8;
+            padding-right: 10px;
+            padding-top: 5px;
+            color: var(--soft-gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div>
+                <a href="index.html" class="back-link">← Gallery</a>
+                <div class="statue-img">[ Classical Bust ]</div>
+                <h1>The Atheneum</h1>
+                <ul class="nav-links">
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Exhibits</a></li>
+                    <li><a href="#">Archives</a></li>
+                </ul>
+            </div>
+            <div style="font-size: 0.8rem; color: #999;">
+                Est. 2024 • Arts & Humanities
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <article>
+                <span class="date">October 12, 2024</span>
+                <h2>The Pursuit of Knowledge</h2>
+                <p><span class="drop-cap">T</span>here is a quiet beauty in the dusting of chalk on one's hands, the smell of old paper, and the golden hour light filtering through tall library windows. We are dedicated to the <span class="highlight">preservation of beauty</span> and the relentless pursuit of truth.</p>
+                <p>In this digital space, we curate collections that bridge the gap between classical antiquity and modern thought. Grab a coffee, find a comfortable chair, and stay a while.</p>
+            </article>
+
+            <div class="card-grid">
+                <div class="note-card">
+                    <span class="date">Poetry</span>
+                    <h3>The Romantics</h3>
+                    <p>Exploring the works of Keats and Shelley through a modern lens.</p>
+                </div>
+                <div class="note-card">
+                    <span class="date">History</span>
+                    <h3>Renaissance Art</h3>
+                    <p>A deep dive into the color palettes of 15th century Florence.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

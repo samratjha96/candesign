@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: Dark Academia design implementation with moody, scholarly vibes -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Academia Aesthetic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-green: #1a2b1a;
+            --burgundy: #4a0e0e;
+            --dark-wood: #2c1b12;
+            --parchment: #f2eecb;
+            --gold: #c5a059;
+            --ink: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--deep-green);
+            color: var(--parchment);
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background-color: var(--dark-wood);
+            padding: 50px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        /* Ornate corners */
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        header {
+            text-align: center;
+            border-bottom: 1px solid var(--gold);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .latin-motto {
+            font-style: italic;
+            color: rgba(242, 238, 203, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .main-content {
+            display: grid;
+            gap: 30px;
+        }
+
+        .paper-sheet {
+            background-color: var(--parchment);
+            color: var(--ink);
+            padding: 30px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            transform: rotate(-1deg);
+        }
+
+        .paper-sheet:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            border-bottom: 2px solid var(--burgundy);
+            padding-bottom: 5px;
+            margin-top: 0;
+            color: var(--burgundy);
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--burgundy);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+        }
+
+        blockquote {
+            border-left: 3px solid var(--gold);
+            margin: 20px 0;
+            padding-left: 20px;
+            font-style: italic;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: var(--burgundy);
+            color: var(--parchment);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            border: 1px solid var(--burgundy);
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--burgundy);
+            border-color: var(--burgundy);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: var(--gold);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Dust particles effect overlay could go here, but keeping it simple */
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Return to Gallery</a>
+
+    <div class="container">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <header>
+            <h1>The Archive</h1>
+            <span class="latin-motto">Scientia Potentia Est</span>
+        </header>
+
+        <div class="main-content">
+            <blockquote cite="https://www.goodreads.com/quotes/12345">
+                "We were all a little in love with the tragedy of it all."
+            </blockquote>
+
+            <div class="paper-sheet">
+                <h2>Course Overview: Literature</h2>
+                <p>Welcome, student. This semester we shall explore the depths of gothic romanticism and the melancholy of the human condition. Prepare your quills.</p>
+                <p><strong>Required Reading:</strong> The Secret History, If We Were Villains, The Picture of Dorian Gray.</p>
+                
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">Modules</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">45</span>
+                        <span class="stat-label">Hours</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">A+</span>
+                        <span class="stat-label">Target</span>
+                    </div>
+                </div>
+
+                <a href="#" class="btn">Enter Classroom</a>
+            </div>
+
+            <div class="paper-sheet" style="position: relative; z-index: 2; margin-top: -10px;">
+                <h2>Study Notes</h2>
+                <p>September 14th. The library was particularly cold today. Found an interesting passage in Ovid regarding metamorphosis. Must cross-reference with Dante.</p>
+                <p style="font-family: 'Courier New', monospace; font-size: 0.9rem; color: #444;">
+                    > TODO: Return "Dead Poets Society" DVD<br>
+                    > TODO: Buy more black coffee
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

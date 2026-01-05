@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: High-end Editorial Luxury aesthetic. Fashion-forward, strict grid, high contrast serif. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAISON NOIR | Editorial Luxury</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,ital,wght@6..96,400;6..96,500;6..96,700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #080808;
+            --text-color: #F4F1EA;
+            --accent: #9A9A9A;
+            --gutter: 40px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #333; }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Bodoni Moda', serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        .display-text {
+            font-size: clamp(4rem, 10vw, 12rem);
+            letter-spacing: -0.04em;
+            margin-left: -5px; /* Optical alignment */
+        }
+
+        .subtitle {
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        p {
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .brand {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .menu-btn {
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* Layout Grid */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gutter);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            /* Placeholder for High Fashion Model */
+            background-image: url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1888&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            grid-column: 1 / 9;
+            margin-top: 100px;
+        }
+
+        .hero-content h1 {
+            mix-blend-mode: difference;
+        }
+
+        /* Editorial Section */
+        .editorial {
+            padding: 200px 0;
+        }
+
+        .text-block {
+            grid-column: 2 / 6;
+            padding-top: 100px;
+        }
+
+        .image-block {
+            grid-column: 7 / 13;
+            position: relative;
+        }
+
+        .aspect-3-4 {
+            aspect-ratio: 3/4;
+            width: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: all 0.8s ease;
+        }
+
+        .aspect-3-4:hover {
+            filter: grayscale(0%);
+        }
+
+        /* Overlapping Elements */
+        .overlap-title {
+            position: absolute;
+            bottom: 40px;
+            left: -100px;
+            font-size: 6rem;
+            white-space: nowrap;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text-color);
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        /* Product Gallery */
+        .collection {
+            padding-bottom: 200px;
+        }
+
+        .collection-header {
+            grid-column: 1 / 13;
+            text-align: center;
+            margin-bottom: 150px;
+        }
+
+        .product-item {
+            grid-column: span 4;
+            margin-top: var(--offset, 0px);
+        }
+
+        .product-img-wrapper {
+            overflow: hidden;
+            margin-bottom: 20px;
+            aspect-ratio: 3/4;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .product-item:hover .product-img {
+            transform: scale(1.1);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #222;
+            padding: 80px 60px;
+            text-align: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #666;
+        }
+
+        /* Utilities */
+        .serif { font-family: 'Bodoni Moda', serif; }
+        .italic { font-style: italic; }
+        
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding: 0 20px; }
+            .hero-img { width: 100%; opacity: 0.4; }
+            .display-text { font-size: 4rem; }
+            .text-block { grid-column: 1 / -1; margin-bottom: 60px; }
+            .image-block { grid-column: 1 / -1; }
+            .overlap-title { font-size: 3rem; left: 0; bottom: -20px; }
+            .product-item { grid-column: 1 / -1; margin-top: 0 !important; margin-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="menu-btn">Menu</div>
+        <div class="brand">MAISON NOIR</div>
+        <div class="menu-btn">Cart (0)</div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-img"></div>
+        <div class="container" style="height: 100%; align-items: center;">
+            <div class="hero-content">
+                <h1 class="display-text">Silence <br><span class="italic">is Luxury</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <section class="editorial container">
+        <div class="text-block">
+            <h2 class="subtitle">The Autumn Edit</h2>
+            <p>
+                In a world of noise, we choose silence. Our latest collection explores the depth of monochrome, focusing on texture over color, and form over function. Designed in Paris, crafted for the eternal.
+            </p>
+            <br>
+            <p>
+                Each piece is a study in restraint. The absence of the unnecessary allows the essential to speak.
+            </p>
+        </div>
+        <div class="image-block">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1887&auto=format&fit=crop" alt="Fashion Editorial" class="aspect-3-4">
+            <div class="overlap-title">Elegance</div>
+        </div>
+    </section>
+
+    <section class="collection container">
+        <div class="collection-header">
+            <h2 style="font-size: 3rem;">Selected Works</h2>
+        </div>
+
+        <!-- Item 1 -->
+        <div class="product-item">
+            <div class="product-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1550614000-4b9519e02a48?q=80&w=1886&auto=format&fit=crop" alt="Silk Dress" class="product-img">
+            </div>
+            <div class="product-meta">
+                <span>The Silk Drape</span>
+                <span>$1,200</span>
+            </div>
+        </div>
+
+        <!-- Item 2 (Offset) -->
+        <div class="product-item" style="--offset: 100px;">
+            <div class="product-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1605763240004-7e93b172d754?q=80&w=1887&auto=format&fit=crop" alt="Noir Blazer" class="product-img">
+            </div>
+            <div class="product-meta">
+                <span>Noir Blazer</span>
+                <span>$2,400</span>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="product-item">
+            <div class="product-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?q=80&w=1957&auto=format&fit=crop" alt="Leather Bag" class="product-img">
+            </div>
+            <div class="product-meta">
+                <span>Structure Tote</span>
+                <span>$3,100</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 MAISON NOIR. <br><br>
+        Paris &bull; Milan &bull; Tokyo
+    </footer>
+
+</body>
+</html>

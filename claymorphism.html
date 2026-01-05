@@ -1,0 +1,226 @@
+<!-- ABOUTME: Claymorphism demo featuring a Kids' Task Manager -->
+<!-- ABOUTME: Uses inflated 3D shapes, inner shadows for volume, and vibrant colors -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claymorphism Buddy Tasks</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: #e0f2fe;
+            font-family: 'Fredoka', cursive; /* Playful font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #444;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            min-height: 80vh;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #5b21b6;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+        }
+
+        /* Core Clay Style */
+        .clay-card {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            
+            /* The Clay Effect: 2 Inset shadows + 1 Drop shadow */
+            box-shadow: 
+                inset -10px -10px 20px rgba(212, 212, 230, 0.5), /* Bottom-right inner darkness */
+                inset 10px 10px 20px rgba(255, 255, 255, 1),    /* Top-left inner highlight */
+                8px 8px 20px rgba(170, 180, 200, 0.4);          /* Floating shadow */
+            
+            transform: perspective(500px) rotateX(2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .clay-card:hover {
+            transform: perspective(500px) rotateX(0deg) translateY(-5px);
+        }
+
+        /* Specialized Cards */
+        .clay-card.primary {
+            background-color: #8b5cf6;
+            color: white;
+            box-shadow: 
+                inset -10px -10px 20px rgba(76, 29, 149, 0.4),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.4),
+                8px 8px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .clay-card.accent {
+            background-color: #f472b6;
+            color: white;
+             box-shadow: 
+                inset -10px -10px 20px rgba(157, 23, 77, 0.3),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.4),
+                8px 8px 20px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background-color: #fbbf24;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            box-shadow: 
+                inset -4px -4px 8px rgba(180, 83, 9, 0.2),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.6),
+                4px 4px 10px rgba(0,0,0,0.1);
+            margin-right: 15px;
+        }
+
+        /* Layouts */
+        .header-card {
+            display: flex;
+            align-items: center;
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .checkbox {
+            width: 30px;
+            height: 30px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .checkbox.checked {
+            background-color: #10b981;
+            box-shadow: 
+                inset -2px -2px 5px rgba(6, 78, 59, 0.3),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            width: 70px;
+            height: 70px;
+            background-color: #10b981;
+            border-radius: 35px; /* Pill/Circle */
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 
+                inset -5px -5px 10px rgba(6, 78, 59, 0.3),
+                inset 5px 5px 10px rgba(255, 255, 255, 0.4),
+                5px 10px 20px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .fab:hover { transform: scale(1.1); }
+        
+        .progress-bar {
+            height: 15px;
+            width: 100%;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 65%;
+            background: #fbbf24;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Buddy Tasks 🚀</h1>
+
+        <div class="clay-card primary header-card">
+            <div class="avatar">👦</div>
+            <div style="flex-grow: 1;">
+                <h2 style="margin: 0; font-size: 1.4rem;">Hey, Timmy!</h2>
+                <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 5px;">You have 3 tasks left.</div>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+            </div>
+        </div>
+
+        <div class="task-list">
+            <div class="clay-card task-item">
+                <div style="display:flex; align-items: center;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">📚</span>
+                    <div>
+                        <div style="font-weight: bold; font-size: 1.1rem;">Read 10 pages</div>
+                        <div style="font-size: 0.8rem; color: #888;">Homework</div>
+                    </div>
+                </div>
+                <div class="checkbox checked"></div>
+            </div>
+
+            <div class="clay-card task-item">
+                <div style="display:flex; align-items: center;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">🦷</span>
+                    <div>
+                        <div style="font-weight: bold; font-size: 1.1rem;">Brush Teeth</div>
+                        <div style="font-size: 0.8rem; color: #888;">Morning Routine</div>
+                    </div>
+                </div>
+                <div class="checkbox"></div>
+            </div>
+
+            <div class="clay-card accent task-item" style="transform: rotate(-1deg);">
+                <div style="display:flex; align-items: center;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">🧸</span>
+                    <div>
+                        <div style="font-weight: bold; font-size: 1.1rem;">Clean Room</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Big Mission!</div>
+                    </div>
+                </div>
+                <div class="checkbox"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="fab">+</button>
+
+</body>
+</html>

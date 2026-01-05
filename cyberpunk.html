@@ -1,0 +1,186 @@
+<!-- ABOUTME: Implements the 'Cyberpunk' aesthetic (High-tech, low-life). -->
+<!-- ABOUTME: Features neon glows (cyan/magenta), glitch effects, and angular UI. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk UI</title>
+    <style>
+        :root {
+            --neon-cyan: #00f0ff;
+            --neon-yellow: #fcee0a;
+            --neon-red: #ff003c;
+            --bg-color: #050505;
+            --panel-color: rgba(20, 20, 20, 0.9);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--neon-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, #000 3px, #000 3px);
+            background-size: cover;
+        }
+
+        /* Container with angled corners */
+        .cyber-card {
+            position: relative;
+            width: 500px;
+            padding: 40px;
+            background: var(--panel-color);
+            border-left: 5px solid var(--neon-yellow);
+            /* Clip path for the cut corner aesthetic */
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% 85%, 
+                90% 100%, 
+                0 100%
+            );
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Decorative lines */
+        .cyber-card::before {
+            content: "SYSTEM_READY";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: var(--neon-red);
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #fff;
+            text-shadow: 
+                2px 2px var(--neon-red),
+                -2px -2px var(--neon-cyan);
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px var(--neon-red), -2px -2px var(--neon-cyan); }
+            2% { text-shadow: -2px 1px var(--neon-red), 1px -1px var(--neon-cyan); }
+            4% { text-shadow: 1px -2px var(--neon-red), -1px 2px var(--neon-cyan); }
+            6% { text-shadow: 2px 2px var(--neon-red), -2px -2px var(--neon-cyan); }
+            100% { text-shadow: 2px 2px var(--neon-red), -2px -2px var(--neon-cyan); }
+        }
+
+        .status-bar {
+            margin: 20px 0;
+            height: 4px;
+            width: 100%;
+            background: #333;
+            position: relative;
+        }
+
+        .status-fill {
+            height: 100%;
+            width: 75%;
+            background: var(--neon-yellow);
+            box-shadow: 0 0 10px var(--neon-yellow);
+            animation: load 2s ease-out;
+        }
+
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 75%; }
+        }
+
+        p {
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 30px;
+            border-left: 1px solid var(--neon-cyan);
+            padding-left: 15px;
+        }
+
+        /* Cyber Button */
+        .cyber-btn {
+            background: transparent;
+            color: var(--neon-cyan);
+            font-family: inherit;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: 2px solid var(--neon-cyan);
+            cursor: pointer;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%);
+        }
+
+        .cyber-btn:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .cyber-btn::after {
+            content: ">>";
+            position: absolute;
+            right: 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cyber-btn:hover::after {
+            opacity: 1;
+        }
+
+        /* Scanline overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+
+    <div class="cyber-card">
+        <h1>Netrunner</h1>
+        <div class="status-bar"><div class="status-fill"></div></div>
+        <p>
+            Protocol initialized. Connection secure.<br>
+            Warning: Unsanctioned access detected in Sector 7. 
+            Neural link capacity at 75%.
+        </p>
+        <button class="cyber-btn">Jack In</button>
+    </div>
+
+</body>
+</html>

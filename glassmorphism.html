@@ -1,0 +1,257 @@
+<!-- ABOUTME: Glassmorphism demo featuring a credit card dashboard -->
+<!-- ABOUTME: Uses backdrop-filter and semi-transparent layers for a frosted glass effect -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Bank</title>
+    <style>
+        :root {
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Abstract background shapes */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+        .orb-1 { width: 300px; height: 300px; background: #e94560; top: 10%; left: 10%; }
+        .orb-2 { width: 400px; height: 400px; background: #533483; bottom: 10%; right: 10%; }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            width: 90%;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Credit Card Styling */
+        .card-container {
+            position: relative;
+            height: 220px;
+            width: 100%;
+            max-width: 380px;
+            margin-bottom: 30px;
+        }
+
+        .credit-card {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(20px);
+            position: relative;
+            padding: 25px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .chip {
+            width: 50px;
+            height: 35px;
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            position: relative;
+            opacity: 0.8;
+        }
+        
+        .card-number {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            font-family: monospace;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .balance-section h2 {
+            margin: 0 0 5px 0;
+            font-weight: 300;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .balance-section .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #fff, #a5a5a5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Transactions List */
+        .transactions h3 {
+            margin-top: 0;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .t-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .t-info { flex-grow: 1; }
+        .t-name { display: block; font-weight: 600; margin-bottom: 4px; }
+        .t-date { font-size: 0.8rem; opacity: 0.6; }
+        .t-amount { font-weight: bold; }
+        .t-amount.neg { color: #ff9999; }
+        .t-amount.pos { color: #99ff99; }
+
+        /* Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 15px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard { grid-template-columns: 1fr; }
+            .card-container { margin: 0 auto 30px auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="dashboard">
+        <div class="main-section">
+            <div class="glass-panel" style="margin-bottom: 20px;">
+                <div class="balance-section">
+                    <h2>Total Balance</h2>
+                    <p class="amount">$24,592.00</p>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <div class="credit-card">
+                    <div>
+                        <div style="text-align: right; font-weight: bold; font-style: italic; opacity: 0.7;">VISA</div>
+                        <div class="chip"></div>
+                    </div>
+                    <div class="card-number">4522 8910 3390 1245</div>
+                    <div class="card-details">
+                        <span>Alex Morgan</span>
+                        <span>12/26</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-section">
+            <div class="glass-panel" style="height: 100%;">
+                <div class="transactions">
+                    <h3>Recent Activity</h3>
+                    
+                    <div class="transaction-item">
+                        <div class="t-icon">🎬</div>
+                        <div class="t-info">
+                            <span class="t-name">Netflix</span>
+                            <span class="t-date">Today, 10:23 AM</span>
+                        </div>
+                        <span class="t-amount neg">-$15.99</span>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="t-icon">🛒</div>
+                        <div class="t-info">
+                            <span class="t-name">Whole Foods</span>
+                            <span class="t-date">Yesterday</span>
+                        </div>
+                        <span class="t-amount neg">-$84.20</span>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="t-icon">💰</div>
+                        <div class="t-info">
+                            <span class="t-name">Salary</span>
+                            <span class="t-date">Dec 15</span>
+                        </div>
+                        <span class="t-amount pos">+$3,200.00</span>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <h3>Quick Actions</h3>
+                        <div class="quick-actions">
+                            <button class="action-btn">Transfer</button>
+                            <button class="action-btn">Pay Bills</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

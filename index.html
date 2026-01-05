@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: Central directory for design aesthetics with search and copy-paste prompts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Aesthetics Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #FAFAFA;
+            --sidebar-bg: #FFFFFF;
+            --border-color: #E4E4E7;
+            --text-primary: #18181B;
+            --text-secondary: #71717A;
+            --accent: #2563EB;
+            --accent-hover: #1D4ED8;
+            --card-hover: #F4F4F5;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #09090B;
+                --sidebar-bg: #18181B;
+                --border-color: #27272A;
+                --text-primary: #FAFAFA;
+                --text-secondary: #A1A1AA;
+                --accent: #3B82F6;
+                --accent-hover: #60A5FA;
+                --card-hover: #27272A;
+            }
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            overflow-y: auto;
+            flex: 1;
+            margin: 0 -12px;
+            padding: 0 12px;
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--card-hover);
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            scroll-margin-top: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--sidebar-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            background-color: var(--card-hover);
+            color: var(--text-secondary);
+            border-radius: 99px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--card-hover);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Modal */
+        dialog {
+            background: var(--sidebar-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 0;
+            max-width: 600px;
+            width: 90vw;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 4px;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto; /* Allow scrolling if content is long */
+            max-height: 70vh;
+        }
+
+        .prompt-container {
+            width: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+            overflow-y: auto;
+        }
+
+        /* Markdown Styles within the container */
+        .prompt-container h1, .prompt-container h2, .prompt-container h3 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .prompt-container p {
+            margin-bottom: 1em;
+        }
+
+        .prompt-container ul, .prompt-container ol {
+            margin-bottom: 1em;
+            padding-left: 20px;
+        }
+
+        .prompt-container li {
+            margin-bottom: 0.5em;
+        }
+
+        .prompt-container strong {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .prompt-container code {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            background-color: rgba(0,0,0,0.05);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        
+        .tip-text {
+            font-size: 0.8rem; 
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                border-right: none; 
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+            .nav-links { display: none; } /* Hide nav links on mobile for compactness, could be toggled */
+            .logo { margin-bottom: 16px; }
+            .search-container { margin-bottom: 0; }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            Design Directory
+        </div>
+        <div class="search-container">
+            <span class="search-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </span>
+            <input type="text" class="search-input" placeholder="Search aesthetics..." id="searchInput">
+        </div>
+        <nav class="nav-links">
+            <div class="nav-section-title">Categories</div>
+            <a href="#saas" class="nav-item">Modern SaaS</a>
+            <a href="#morphism" class="nav-item">Morphism</a>
+            <a href="#retro" class="nav-item">Bold & Retro</a>
+            <a href="#color" class="nav-item">Color & Light</a>
+            <a href="#nature" class="nav-item">Nature & Cozy</a>
+            <a href="#moody" class="nav-item">Intellectual & Moody</a>
+            <a href="#tech" class="nav-item">Tech & Nostalgia</a>
+            <a href="#clean" class="nav-item">Clean & Aesthetic</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        
+        <div id="saas" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Modern SaaS</h2>
+            </div>
+            <div class="grid">
+                <!-- Bento Grid -->
+                <div class="card" data-search="bento grid apple modular">
+                    <div class="card-header">
+                        <h3 class="card-title">Bento Grid</h3>
+                        <span class="badge">Linear Style</span>
+                    </div>
+                    <p class="card-desc">Modular "LifeOS" dashboard inspired by Japanese lunch boxes and modern productivity tools.</p>
+                    <div class="card-actions">
+                        <a href="bento-grid.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('bento-grid')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Minimalism -->
+                <div class="card" data-search="minimalism luxury architecture white">
+                    <div class="card-header">
+                        <h3 class="card-title">Minimalism</h3>
+                        <span class="badge">High-End</span>
+                    </div>
+                    <p class="card-desc">Luxury Architect Portfolio focusing on massive whitespace, stark contrasts, and perfect alignment.</p>
+                    <div class="card-actions">
+                        <a href="minimalism.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('minimalism')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="morphism" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Morphism</h2>
+            </div>
+            <div class="grid">
+                <!-- Glassmorphism -->
+                <div class="card" data-search="glassmorphism blur translucent">
+                    <div class="card-header">
+                        <h3 class="card-title">Glassmorphism</h3>
+                        <span class="badge">macOS / Future</span>
+                    </div>
+                    <p class="card-desc">FinTech dashboard using transparency, blur filters, and layered glass effects.</p>
+                    <div class="card-actions">
+                        <a href="glassmorphism.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('glassmorphism')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Neumorphism -->
+                <div class="card" data-search="neumorphism soft ui extruded plastic">
+                    <div class="card-header">
+                        <h3 class="card-title">Neumorphism</h3>
+                        <span class="badge">Soft UI</span>
+                    </div>
+                    <p class="card-desc">Smart Home control panel with soft, extruded visuals created by light and shadow.</p>
+                    <div class="card-actions">
+                        <a href="neumorphism.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('neumorphism')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Skeuomorphism -->
+                <div class="card" data-search="skeuomorphism realistic texture retro">
+                    <div class="card-header">
+                        <h3 class="card-title">Skeuomorphism</h3>
+                        <span class="badge">Realistic</span>
+                    </div>
+                    <p class="card-desc">Vintage Analog Synth interface with realistic leather, metal, and plastic textures.</p>
+                    <div class="card-actions">
+                        <a href="skeuomorphism.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('skeuomorphism')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="retro" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Bold & Retro</h2>
+            </div>
+            <div class="grid">
+                <!-- Neobrutalism -->
+                <div class="card" data-search="neobrutalism contrast raw">
+                    <div class="card-header">
+                        <h3 class="card-title">Neobrutalism</h3>
+                        <span class="badge">Unrefined</span>
+                    </div>
+                    <p class="card-desc">Detective Agency site with high contrast, black outlines, and clashing colors.</p>
+                    <div class="card-actions">
+                        <a href="neobrutalism.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('neobrutalism')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Retro Y2K -->
+                <div class="card" data-search="y2k matrix hacker cyberpunk">
+                    <div class="card-header">
+                        <h3 class="card-title">Retro Y2K</h3>
+                        <span class="badge">Cyber / Matrix</span>
+                    </div>
+                    <p class="card-desc">Hacking Portal with neon terminals, glitch effects, and early 2000s vibes.</p>
+                    <div class="card-actions">
+                        <a href="retro-y2k.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('retro-y2k')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Editorial -->
+                <div class="card" data-search="editorial swiss grid typography">
+                    <div class="card-header">
+                        <h3 class="card-title">Editorial / Swiss</h3>
+                        <span class="badge">Print Style</span>
+                    </div>
+                    <p class="card-desc">Art Exhibition site utilizing strict grids, massive typography, and asymmetry.</p>
+                    <div class="card-actions">
+                        <a href="editorial-swiss.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('editorial-swiss')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Claymorphism -->
+                <div class="card" data-search="claymorphism 3d playful">
+                    <div class="card-header">
+                        <h3 class="card-title">Claymorphism</h3>
+                        <span class="badge">3D / Playful</span>
+                    </div>
+                    <p class="card-desc">Friendly To-Do app featuring inflated 3D shapes and vibrant candy colors.</p>
+                    <div class="card-actions">
+                        <a href="claymorphism.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('claymorphism')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Kidcore -->
+                <div class="card" data-search="kidcore indie playful primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Indie / Kidcore</h3>
+                        <span class="badge">Playful</span>
+                    </div>
+                    <p class="card-desc">Explosions of primary colors, sticker icons, and unpolished high-energy.</p>
+                    <div class="card-actions">
+                        <a href="kidcore.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('kidcore')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="color" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Color & Light</h2>
+            </div>
+            <div class="grid">
+                <!-- Aurora -->
+                <div class="card" data-search="aurora mesh gradient dreamy">
+                    <div class="card-header">
+                        <h3 class="card-title">Aurora Gradients</h3>
+                        <span class="badge">Dreamy / Tech</span>
+                    </div>
+                    <p class="card-desc">AI Assistant landing page with soft, fluid, multi-colored mesh gradients.</p>
+                    <div class="card-actions">
+                        <a href="aurora-gradients.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('aurora-gradients')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Dark Mode -->
+                <div class="card" data-search="dark mode sleek oled neon">
+                    <div class="card-header">
+                        <h3 class="card-title">Sleek Dark Mode</h3>
+                        <span class="badge">High Contrast</span>
+                    </div>
+                    <p class="card-desc">Crypto Dashboard using "True Black" background and vibrant neon accents.</p>
+                    <div class="card-actions">
+                        <a href="dark-mode.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('dark-mode')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="nature" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Nature & Cozy</h2>
+            </div>
+            <div class="grid">
+                <!-- Organic Modern -->
+                <div class="card" data-search="organic modern earthy sustainable cream">
+                    <div class="card-header">
+                        <h3 class="card-title">Organic Modern</h3>
+                        <span class="badge">Sustainable</span>
+                    </div>
+                    <p class="card-desc">Cream backgrounds, earthy typography, organic blob shapes, and a "slow living" aesthetic.</p>
+                    <div class="card-actions">
+                        <a href="organic-modern.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('organic-modern')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Cottagecore -->
+                <div class="card" data-search="cottagecore vintage floral pastel">
+                    <div class="card-header">
+                        <h3 class="card-title">Cottagecore</h3>
+                        <span class="badge">Vintage</span>
+                    </div>
+                    <p class="card-desc">Romanticized rural life with soft pastels, floral patterns, and vintage vibes.</p>
+                    <div class="card-actions">
+                        <a href="cottagecore.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('cottagecore')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Japandi -->
+                <div class="card" data-search="japandi minimalist zen wood">
+                    <div class="card-header">
+                        <h3 class="card-title">Japandi</h3>
+                        <span class="badge">Zen / Minimal</span>
+                    </div>
+                    <p class="card-desc">Japanese minimalism meets Scandinavian functionality. Wood textures and empty space.</p>
+                    <div class="card-actions">
+                        <a href="japandi.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('japandi')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="moody" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Intellectual & Moody</h2>
+            </div>
+            <div class="grid">
+                <!-- Dark Academia -->
+                <div class="card" data-search="dark academia gothic scholarly">
+                    <div class="card-header">
+                        <h3 class="card-title">Dark Academia</h3>
+                        <span class="badge">Gothic</span>
+                    </div>
+                    <p class="card-desc">Inspired by old libraries. Deep greens, wood, parchment, and serif fonts.</p>
+                    <div class="card-actions">
+                        <a href="dark-academia.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('dark-academia')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Light Academia -->
+                <div class="card" data-search="light academia museum classical">
+                    <div class="card-header">
+                        <h3 class="card-title">Light Academia</h3>
+                        <span class="badge">Classical</span>
+                    </div>
+                    <p class="card-desc">Sunnier scholarly vibes with beige, cream, and coffee tones and classical art.</p>
+                    <div class="card-actions">
+                        <a href="light-academia.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('light-academia')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Whimsigothic -->
+                <div class="card" data-search="whimsigothic witchy celestial">
+                    <div class="card-header">
+                        <h3 class="card-title">Whimsigothic</h3>
+                        <span class="badge">Mystical</span>
+                    </div>
+                    <p class="card-desc">Celestial whimsy meets gothic darkness. Moons, stars, velvet, and "witchy" professional.</p>
+                    <div class="card-actions">
+                        <a href="whimsigothic.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('whimsigothic')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tech" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Tech & Nostalgia</h2>
+            </div>
+            <div class="grid">
+                <!-- Frutiger Aero -->
+                <div class="card" data-search="frutiger aero glossy 2000s">
+                    <div class="card-header">
+                        <h3 class="card-title">Frutiger Aero</h3>
+                        <span class="badge">Glossy / 2000s</span>
+                    </div>
+                    <p class="card-desc">Glossy tech look from 2000-2010. Bright blues, bubbles, and high-gloss buttons.</p>
+                    <div class="card-actions">
+                        <a href="frutiger-aero.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('frutiger-aero')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Vaporwave -->
+                <div class="card" data-search="vaporwave retro surreal neon">
+                    <div class="card-header">
+                        <h3 class="card-title">Vaporwave</h3>
+                        <span class="badge">Surreal</span>
+                    </div>
+                    <p class="card-desc">Neon pinks, 80s statues, glitch art, and lo-fi digital sunset vibes.</p>
+                    <div class="card-actions">
+                        <a href="vaporwave.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('vaporwave')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Cyberpunk -->
+                <div class="card" data-search="cyberpunk neon high-tech dystopia">
+                    <div class="card-header">
+                        <h3 class="card-title">Cyberpunk</h3>
+                        <span class="badge">High-Tech</span>
+                    </div>
+                    <p class="card-desc">High-contrast dark backgrounds with neon "glow" accents. Futuristic and angular.</p>
+                    <div class="card-actions">
+                        <a href="cyberpunk.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('cyberpunk')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="clean" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Clean & Aesthetic</h2>
+            </div>
+            <div class="grid">
+                <!-- Minimalistcore -->
+                <div class="card" data-search="minimalistcore clean polished beige">
+                    <div class="card-header">
+                        <h3 class="card-title">Minimalistcore</h3>
+                        <span class="badge">Polished</span>
+                    </div>
+                    <p class="card-desc">Ultra-polished, beige/white palettes, gold accents. Expensive, healthy, and organized.</p>
+                    <div class="card-actions">
+                        <a href="minimalistcore.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('minimalistcore')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Quiet Luxury -->
+                <div class="card" data-search="quiet luxury old money classic">
+                    <div class="card-header">
+                        <h3 class="card-title">Quiet Luxury</h3>
+                        <span class="badge">Elite / Classic</span>
+                    </div>
+                    <p class="card-desc">Old Money vibes. Preppy colors, classic typography, and understated elegance.</p>
+                    <div class="card-actions">
+                        <a href="quiet-luxury.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('quiet-luxury')">Get Prompt</button>
+                    </div>
+                </div>
+                <!-- Editorial Luxury -->
+                <div class="card" data-search="editorial luxury fashion monochrome">
+                    <div class="card-header">
+                        <h3 class="card-title">Editorial Luxury</h3>
+                        <span class="badge">High Fashion</span>
+                    </div>
+                    <p class="card-desc">Strict grids, massive typography, and cinematic interactions for high-fashion brands.</p>
+                    <div class="card-actions">
+                        <a href="editorial-luxury.html" class="btn btn-outline">View Demo</a>
+                        <button class="btn btn-primary" onclick="openModal('editorial-luxury')">Get Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <dialog id="promptDialog">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modalTitle">Design Prompt</h3>
+            <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div id="promptContent" class="prompt-container"></div>
+            <div class="tip-text">
+                <span>💡</span> Tip: Paste this prompt into an AI coding agent to recreate this style.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal()">Close</button>
+            <button class="btn btn-primary" onclick="copyPrompt()">Copy to Clipboard</button>
+        </div>
+    </dialog>
+
+    <script>
+        // Database of Prompts
+        const PROMPTS = {
+            "organic-modern": `1. **Role**: "Act as an expert frontend web designer specializing in 'Organic Modern' aesthetics for sustainable brands."
+2. **Visual Style**: "Organic Modern (Earth & Kiln). Combines warm minimalism with nature-inspired textures and soft, fluid shapes."
+3. **Color Palette**: "#F9F8F4 (Cream/Eggshell), #4A4036 (Warm Earth), #8DA399 (Sage Green), #C2785C (Clay/Terracotta), #E6DCCD (Sand)."
+4. **Typography**: "Headers: 'Fraunces' or 'Chonburi' (Characterful Serif). Body: 'Karla' or 'Manrope' (Clean Sans)."
+5. **Key CSS Features**: "Subtle grain texture overlay (\`opacity: 0.05\`). Organic border-radius for images (blobs): \`border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%\`. Zig-zag layouts. Floating decorative shapes with blur filters."
+6. **Structure**: "Fluid layout with alternating text/image sections. Hero section with large morphing image blob. Simple footer with curved top border."`,
+            
+            "bento-grid": `1. **Role**: "Act as an expert frontend web designer specializing in modern, Apple-inspired UI interfaces."
+2. **Visual Style**: "Apple-style bento grid aesthetic. Highly modular, clean, and organized with a focus on rounded card layouts (LifeOS dashboard style)."
+3. **Color Palette**: "#f2f2f7 (Background), #ffffff (Card Background), #1c1c1e (Primary Text), #8e8e93 (Secondary Text), #007aff (Blue Accent), #ff3b30 (Red Accent), #34c759 (Green Accent), #ff9500 (Orange Accent)."
+4. **Typography**: "Font stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif. Weights: 600 (Headers), 400 (Body)."
+5. **Key CSS Features**: "CSS Grid with \`grid-template-columns: repeat(4, 1fr)\` and \`grid-template-rows\`, \`border-radius: 24px\` for all cards, soft shadows \`box-shadow: 0 4px 24px rgba(0,0,0,0.04)\`, \`backdrop-filter: blur(10px)\` for overlays, hover effects with \`transform: translateY(-2px)\`."
+6. **Structure**: "A central container constrained to max-width 1000px, containing a grid of cards of varying sizes (1x1, 2x1, 2x2, 1x2). Includes specific card types like Profile (large square), Weather, Music Player (wide), and Toggles."`,
+            
+            "minimalism": `1. **Role**: "Act as an expert frontend web designer specializing in high-end architectural and portfolio sites."
+2. **Visual Style**: "Strict Minimalism (VØID Architects style). Focus on massive whitespace, stark black-and-white contrast, and removing non-essential elements."
+3. **Color Palette**: "#ffffff (Background), #000000 (Text), #999999 (Gray), #f4f4f4 (Light Gray)."
+4. **Typography**: "Headers: 'Cinzel', serif (Weights: 400, 700). Body: 'Inter', sans-serif (Weights: 300, 400, 600)."
+5. **Key CSS Features**: "Extensive padding/margin for breathability, \`filter: grayscale(100%)\` on images transitioning to color on hover, simple 1px underlines for links, \`mix-blend-mode\` techniques, smooth transitions \`transition: transform 0.6s cubic-bezier(...)\`."
+6. **Structure**: "Fixed transparent navigation bar, full-viewport height hero section with massive typography, vertical list of large project cards (alternating text/image alignment), simple footer."`,
+            
+            "glassmorphism": `1. **Role**: "Act as an expert frontend web designer specializing in trendy, translucent UI designs."
+2. **Visual Style**: "Glassmorphism (Bank Dashboard). Features frosted glass panels floating over a dark, deep gradient background with abstract glowing orbs."
+3. **Color Palette**: "Background Gradient: #1a1a2e, #16213e, #0f3460. Glass: rgba(255, 255, 255, 0.1) and rgba(255, 255, 255, 0.2). Text: #ffffff. Orbs: #e94560, #533483."
+4. **Typography**: "'Inter', system-ui, sans-serif. Monospace for card numbers."
+5. **Key CSS Features**: "\`backdrop-filter: blur(16px)\` and \`-webkit-backdrop-filter\`, semi-transparent backgrounds using RGBA, \`border: 1px solid rgba(255, 255, 255, 0.2)\` for glass edges, \`box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37)\`, absolute positioning for blurred background blobs."
+6. **Structure**: "Dashboard layout with a main glass panel and sidebar. Includes specific components like a realistic credit card with glass texture, transaction list with icons, and action buttons."`,
+            
+            "neumorphism": `1. **Role**: "Act as an expert frontend web designer specializing in Soft UI and extruded plastic interfaces."
+2. **Visual Style**: "Neumorphism (Smart Home Controller). Elements appear extruded from the background using light and dark shadows, mimicking physical buttons and knobs."
+3. **Color Palette**: "#e0e5ec (Background/Base), #4d5f71 (Text), #ffffff (Light Shadow), #a3b1c6 (Dark Shadow), #6d5dfc (Accent Purple)."
+4. **Typography**: "'Nunito', sans-serif. Weights: 400, 600, 700."
+5. **Key CSS Features**: "Double box-shadows: \`box-shadow: 20px 20px 60px #a3b1c6, -20px -20px 60px #ffffff\`. Inset shadows for 'pressed' states: \`inset 4px 4px 8px #a3b1c6\`. \`border-radius: 50%\` for circular elements. No hard borders, only soft lighting effects."
+6. **Structure**: "A mobile-app style container. Components include a circular thermostat dial, range slider, and a grid of soft-ui toggle cards."`,
+            
+            "claymorphism": `1. **Role**: "Act as an expert frontend web designer specializing in playful, 3D character-driven interfaces."
+2. **Visual Style**: "Claymorphism (Kids' Task App). Features inflated, soft, 3D-looking shapes that resemble clay or marshmallows."
+3. **Color Palette**: "#e0f2fe (Background), #ffffff (Card Base), #5b21b6 (Dark Purple Text), #8b5cf6 (Primary Purple), #f472b6 (Pink Accent), #fbbf24 (Yellow), #10b981 (Green)."
+4. **Typography**: "'Fredoka', cursive. Weights: 400, 600."
+5. **Key CSS Features**: "Multiple internal shadows for volume: \`inset -10px -10px 20px rgba(212, 212, 230, 0.5)\` (shadow) and \`inset 10px 10px 20px rgba(255, 255, 255, 1)\` (highlight). Floating drop shadows \`8px 8px 20px\`. High border-radius (30px). Perspective transforms \`transform: perspective(500px) rotateX(2deg)\`."
+6. **Structure**: "Mobile-width card container. Header with avatar, list of task cards (some tilted), and a floating action button (FAB)."`,
+            
+            "skeuomorphism": `1. **Role**: "Act as an expert frontend web designer specializing in realistic, digital-physical interfaces."
+2. **Visual Style**: "Skeuomorphism (Vintage Analog Synth). Mimics real-world materials like leather, wood, brushed metal, and plastic with high fidelity."
+3. **Color Palette**: "#2c2520 (Leather), #5d4037 (Wood), #444444 (Metal), #ffcc00 (Meter Gradient), #222222 (Dark Plastic), #cccccc (Screws)."
+4. **Typography**: "'Share Tech Mono', monospace."
+5. **Key CSS Features**: "Complex gradients: \`linear-gradient\`, \`radial-gradient\`, and \`conic-gradient\` (for brushed metal). Texture simulation using \`url()\` noise patterns. Multiple shadows: \`inset 0 1px 0 rgba(255,255,255,0.2)\` for highlights, drop shadows for depth. CSS-drawn screws and knobs."
+6. **Structure**: "A device casing container with leather texture, wood side panels, and a metal faceplate. Grid layout for controls including a rotating knob, toggle switch, VU meter, and speaker grille."`,
+            
+            "neobrutalism": `1. **Role**: "Act as an expert frontend web designer specializing in bold, high-contrast, 'Pop-Art' styles."
+2. **Visual Style**: "Neobrutalism (Gumshoe Detective Agency). Features thick outlines, hard shadows, clashing colors, and a raw, unrefined look."
+3. **Color Palette**: "#f0f0f0 (Light Gray), #FFDE00 (Bright Yellow), #B084CC (Purple), #FF4A4A (Red), #4A90E2 (Blue), #000000 (Black)."
+4. **Typography**: "'Public Sans', sans-serif. Weights: 700, 900 (Black)."
+5. **Key CSS Features**: "Thick borders: \`border: 4px solid #000\`. Hard shadows (no blur): \`box-shadow: 6px 6px 0px #000\`. Hover effects that translate elements (\`transform: translate(-2px, -2px)\`) to mimic button pressing. Simple geometric shapes."
+6. **Structure**: "Heavy grid layout (12-column). Blocky headers, distinct navigation buttons, service cards with distinct background colors, and a raw HTML form with thick inputs."`,
+            
+            "retro-y2k": `1. **Role**: "Act as an expert frontend web designer specializing in retro-futurism and cyberpunk aesthetics."
+2. **Visual Style**: "Retro Y2K / Cyberpunk (Hacker Terminal). Mimics a late 90s/early 2000s computer interface with neon colors and terminal effects."
+3. **Color Palette**: "#00ff00 (Neon Green), #003300 (Dark Green), #ff00ff (Neon Pink), #050505 (Black Background)."
+4. **Typography**: "'VT323', monospace; 'Courier New'."
+5. **Key CSS Features**: "Scanline overlay using \`repeating-linear-gradient\`. Text shadows for glow and glitch effects. Blinking cursor animation. Marquee text scrolling (\`animation: marquee\`). Dashed borders. Grid background pattern."
+6. **Structure**: "CRT monitor style container. Header with status bars, scrolling marquee text, grid layout of 'modules' (terminal window, link list), and retro buttons."`,
+            
+            "editorial-swiss": `1. **Role**: "Act as an expert frontend web designer specializing in International Typographic Style (Swiss Style)."
+2. **Visual Style**: "Editorial / Swiss Style (Art Exhibition). Focuses on objective clarity, strict grid adherence, massive typography, and asymmetry."
+3. **Color Palette**: "#111111 (Black), #ffffff (White), #D00000 (Strong Red), #f4f4f4 (Light Grey)."
+4. **Typography**: "'Inter', 'Helvetica Neue', Arial, sans-serif. Weights: 300, 400, 700. Massive font sizes using \`clamp()\`. "
+5. **Key CSS Features**: "Visible grid lines (using \`border-right\` on columns). strict 12-column CSS Grid. Asymmetric layouts. \`writing-mode: vertical-lr\` for vertical text. Overlapping elements (\`margin-top: -50px\`). High contrast borders."
+6. **Structure**: "Full-width container with visible grid background. Large typographic hero section, split-screen content areas (image/color block vs text), floating overlapping info boxes."`,
+            
+            "aurora-gradients": `1. **Role**: "Act as an expert frontend web designer specializing in fluid, ethereal, and modern AI interfaces."
+2. **Visual Style**: "Aurora / Mesh Gradients (Lumina AI). Features moving, multi-colored background blobs and clean glass foreground elements."
+3. **Color Palette**: "#ffffff (Bg), #1a1a2e (Text), #ff9a9e (Pink), #a18cd1 (Purple), #fbc2eb (Light Pink), #8fd3f4 (Light Blue)."
+4. **Typography**: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif. Weights: 400, 600, 700."
+5. **Key CSS Features**: "High-blur background blobs: \`filter: blur(80px)\`. Keyframe animations (\`float\`) to move blobs. Glassmorphism overlays: \`backdrop-filter: blur(20px)\` and \`background: rgba(255,255,255,0.4)\`. Linear gradients on text (\`background-clip: text\`)."
+6. **Structure**: "Full-screen animated background. Centralized content layout with a Hero section and a floating 'Chat Interface' card."`,
+            
+            "dark-mode": `1. **Role**: "Act as an expert frontend web designer specializing in developer tools and high-performance dark themes."
+2. **Visual Style**: "True Dark Mode ('Obsidian' IDE). Uses #000000 blacks, dark grays, and high-contrast neon syntax colors."
+3. **Color Palette**: "#000000 (True Black), #0d0d0d (Panel Bg), #333333 (Border), #bb86fc (Purple), #03dac6 (Teal), #cf6679 (Pink), #e0e0e0 (Text Main), #757575 (Text Dim)."
+4. **Typography**: "'Fira Code', monospace. 'Inter', sans-serif. Weights: 300, 400, 600, 800."
+5. **Key CSS Features**: "Subtle 1px borders (\`#333\`). Glowing accents using \`box-shadow\` or radial gradients. Flexbox and Grid layouts. Syntax highlighting classes (\`.kwd\`, \`.str\`, \`.fn\`). Clean, utilitarian spacing."
+6. **Structure**: "IDE-like layout: Header/Navbar, collapsible Sidebar file tree, and a main Editor area containing a hero section and a code snippet window."`,
+            
+            "organic-modern": `1. **Role**: "Act as an expert frontend web designer specializing in sustainable, organic modern brands."
+2. **Visual Style**: "Organic Modern (Earth & Kiln). Features cream backgrounds, warm earthy typography, and organic/fluid layouts."
+3. **Color Palette**: "#F9F8F4 (Cream Bg), #4A4036 (Earth Text), #8DA399 (Sage), #C2785C (Clay), #E6DCCD (Sand)."
+4. **Typography**: "Headers: 'Fraunces' or 'Cooper Nouveau' (Soft Serif). Body: 'Karla' or 'Manrope' (Clean Sans)."
+5. **Key CSS Features**: "SVG grain overlay \`opacity: 0.05\`. Organic border-radius (blobs): \`border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%\`. Floating decorative shapes with blur \`filter: blur(40px)\`."
+6. **Structure**: "Fluid zig-zag layout (alternating text/image). Generous padding (100px+). Images masked into organic shapes."`,
+            
+            "cottagecore": `1. **Role**: "Act as an expert frontend web designer specializing in nostalgic, digital garden interfaces."
+2. **Visual Style**: "Digital Garden / Cottagecore Wiki (Elara's Garden). A personal knowledge base with soft, paper-like UI, pastel tones, and nostalgic details."
+3. **Color Palette**: "#F9F5F1 (Paper Bg), #4A4238 (Ink Text), #94A89A (Sage), #D8A49B (Rose), #FFF8C5 (Highlight)."
+4. **Typography**: "Headers: 'Crimson Pro', serif (Italic variants). Body: 'Lato', sans-serif. Handwriting fonts for accents."
+5. **Key CSS Features**: "Paper texture backgrounds using SVG noise. 'Polaroid' style image cards with rotation (\`transform: rotate(-2deg)\`). Dashed underlines. Todo lists with custom circular checkboxes. Soft, layered box-shadows."
+6. **Structure**: "Wiki-style 2-column layout. Sidebar with 'Avatar' profile and navigational tree. Main content area with breadcrumbs, tagged metadata, polaroid gallery grid, and stylized checklist."`,
+            
+            "japandi": `1. **Role**: "Act as an expert frontend web designer specializing in minimalist productivity tools."
+2. **Visual Style**: "Japandi Focus Dashboard (Zen Focus). Blends Japanese minimalism with Scandinavian functionality. Warm, natural, and distraction-free."
+3. **Color Palette**: "#EAEAE6 (Warm Greige), #F5F5F2 (Surface), #33312E (Charcoal Text), #BFA588 (Wood Accent), #7D8C7C (Sage Green)."
+4. **Typography**: "'Outfit', sans-serif (Clean, modern). 'Noto Sans JP' for logo marks. Tabular figures for timers."
+5. **Key CSS Features**: "SVG Stroke-dasharray animations for circular timers. Soft, deep shadows \`box-shadow: 0 10px 40px -10px rgba(51, 49, 46, 0.08)\`. Wood-grain accent lines. Abstract geometric background shapes (stones)."
+6. **Structure**: "Floating dashboard card centered on screen. Sidebar with minimal stats. Central focus area with large circular timer, current task display, and clean icon-only controls."`,
+            
+            "dark-academia": `Act as an expert frontend web designer. Create a web page with a 'Dark Academia' visual style. This aesthetic is moody, scholarly, and inspired by gothic romanticism and old libraries. 
+
+**Color Palette:** Use #1a2b1a (deep green), #4a0e0e (burgundy), #2c1b12 (dark wood), #f2eecb (parchment), #c5a059 (gold), and #1a1a1a (ink). 
+
+**Typography:** Use 'Playfair Display' for headings and 'Merriweather' for body text. 
+
+**Key CSS Features:** 
+- Ornate borders, such as double lines or specific corner accents using pseudo-elements.
+- Rotated containers to simulate stacked paper sheets.
+- Blockquotes with heavy left borders.
+- SVG texture backgrounds (like grain or hatched lines).
+- Box-shadows to create depth and 'lifting' off the desk.`,
+            
+            "light-academia": `Act as an expert frontend web designer. Create a web page with a 'Light Academia' visual style. This aesthetic evokes museums, classical antiquity, and airy intellectual spaces. 
+
+**Color Palette:** Use #FDFBF7 (cream), #F3EFE0 (beige), #8C7B70 (coffee), #D4AF37 (soft gold), #333333 (charcoal), and #FAFAFA (marble). 
+
+**Typography:** Use 'Lora' for headings and 'Inter' for body text. 
+
+**Key CSS Features:** 
+- Clean grid layouts with sidebars (simulating a guidebook or catalog).
+- Linear gradients used as text highlighters (background-size transitions on hover).
+- Drop caps (float: left, large font-size) for introductory paragraphs.
+- Subtle hover transformations (translateY) for interaction.
+- Minimalist borders and soft shadows.`,
+            
+            "whimsigothic": `Act as an expert frontend web designer. Create a web page with a 'Whimsigothic' visual style. This aesthetic mixes celestial themes, witchy vibes, and 90s gothic elements with a professional touch. 
+
+**Color Palette:** Use #1a1a2e (midnight), #2e1a47 (deep purple), #4a2b5e (velvet), #d4af37 (gold), #c0c0c0 (silver), and #e6e6fa (star white). 
+
+**Typography:** Use 'Cinzel Decorative' for display text and 'Quicksand' for body text. 
+
+**Key CSS Features:** 
+- Glassmorphism effects using 'backdrop-filter: blur' and semi-transparent backgrounds.
+- Radial gradients to create starry night backgrounds.
+- Text gradients (background-clip: text) for gold/metallic headers.
+- CSS animations for slowly spinning decorative elements (like zodiac wheels).
+- Glow effects via text-shadow and box-shadow.`,
+            
+            "frutiger-aero": `Act as an expert frontend web designer. Create a web page with a 'Frutiger Aero' visual style. This aesthetic (popular 2004-2013) features glossy textures, skeuomorphism, and vibrant sky/nature themes. 
+
+**Color Palette:** Use #87CEFA (sky blue), #E0F7FA (light cyan), #ffffff (white), #7CFC00 (grass green), #32CD32 (lime green), and #0277bd (dark blue). 
+
+**Typography:** Use 'Segoe UI', 'Frutiger', or 'Myriad Pro' (humanist sans-serif). 
+
+**Key CSS Features:** 
+- Linear gradients with hard stops or curves to create 'gloss' and reflections on buttons and windows.
+- 'Backdrop-filter: blur' for aero-glass window effects.
+- Heavy use of box-shadows (inner and outer) to create depth and 3D volume.
+- Floating animations (keyframes) for bubbles or orbs.
+- Large border-radius for organic, friendly UI shapes.`,
+            
+            "vaporwave": `Act as an expert frontend web designer. Create a web page with a 'Vaporwave' visual style. This aesthetic relies on 80s/90s nostalgia, surrealism, glitch art, and neon grids. 
+
+**Color Palette:** Use #2b002b (dark purple), #FFD700 (gold), #FF00FF (magenta), #8A2BE2 (purple), #00FFFF (cyan), and #c0c0c0 (Windows 95 grey). 
+
+**Typography:** Use 'Courier New' or 'MS Gothic' (monospaced/pixelated fonts). 
+
+**Key CSS Features:** 
+- CSS 3D transforms (perspective, rotateX) to create the classic 'synthwave grid' floor.
+- Linear gradients and mask-images to create the 'setting sun' with blind effects.
+- 'Windows 95' style borders (inset/outset light and dark bevels).
+- Text-shadows for retro glow effects.
+- Marquee or sliding animations for grid movement.`,
+            
+            "cyberpunk": `Act as an expert frontend web designer. Create a web page with a 'Cyberpunk' visual style. This aesthetic is 'high-tech, low-life,' featuring dark modes, neon glows, angular geometry, and glitch effects. 
+
+**Color Palette:** Use #00f0ff (neon cyan), #fcee0a (neon yellow), #ff003c (neon red), #050505 (black bg), and rgba(20, 20, 20, 0.9) (panels). 
+
+**Typography:** Use 'Courier New' or similar monospaced/terminal fonts. 
+
+**Key CSS Features:** 
+- 'Clip-path' polygons to create 'cut corners' on cards and buttons.
+- Text-shadows to simulate neon glowing text.
+- CSS keyframe animations for 'glitch' effects (shifting text shadows rapidly).
+- Scanline overlays using repeating linear gradients and pointer-events: none.
+- Angular borders and progress bars.`,
+            
+            "minimalistcore": `1. **Role**: "Act as an expert frontend web designer specializing in high-end beauty/skincare e-commerce."
+2. **Visual Style**: "Minimalistcore / Clean Girl (LUMIÈRE). Ultra-polished, airy, with ambient lighting and soft UI."
+3. **Color Palette**: "#FAFAFA (Off-white), #FFFFFF (Pure White), #222222 (Text Dark), #666666 (Text Grey), #C5A059 (Accent)."
+4. **Typography**: "'Inter', sans-serif. Clean, light weights. Massive hero typography."
+5. **Key CSS Features**: "Ambient background glows using \`filter: blur(60px)\`. Glassmorphism header \`backdrop-filter: blur(10px)\`. Floating cards with \`box-shadow: 0 20px 40px rgba(0,0,0,0.03)\`. Pill-shaped buttons."
+6. **Structure**: "Fixed sticky header. Full-height hero section with gradient text. Floating grid of product cards with 'Step 01, Step 02' labels."`,
+            
+            "quiet-luxury": `1. **Role**: "Act as an expert frontend web designer specializing in luxury heritage brands."
+2. **Visual Style**: "Quiet Luxury / Old Money (Kensington & Co). Understated elegance, timeless typography, and rich, muted color palettes."
+3. **Color Palette**: "#F5F2EA (Cream), #1B2432 (Navy), #2C2C2C (Charcoal), #A89F91 (Muted Gold), #DCD6CC (Border)."
+4. **Typography**: "Headers: 'Cormorant Garamond', serif. UI: 'Montserrat', sans-serif (Uppercase, wide spacing)."
+5. **Key CSS Features**: "1px solid borders for grid layouts. 'Garment' abstract visuals using geometric shapes and box-shadows. Large, italicized watermark monograms. Hover effects on product cards (bg color change)."
+6. **Structure**: "Split-screen hero with text/visual balance. 3-column product grid with visible borders. centered blockquote section."`,
+
+            "editorial-luxury": `1. **Role**: "Act as an expert frontend web designer specializing in high-fashion editorial interfaces."
+2. **Visual Style**: "Editorial Luxury / High Fashion (MAISON NOIR). Characterized by strict grids, massive typography, monochrome palettes, and slow, cinematic interactions."
+3. **Color Palette**: "#080808 (Deep Black), #F4F1EA (Off-White Text), #9A9A9A (Muted Grey Accent), #333333 (Subtle Borders)."
+4. **Typography**: "Primary: 'Bodoni Moda' (High-contrast Serif). Secondary: 'Lato' (Clean Sans). Features massive \`clamp()\` based font sizes and italicized accents."
+5. **Key CSS Features**: "CSS Grid (12-column) with variable offsets for asymmetrical layouts. \`mix-blend-mode: difference\` for text over images. Parallax-like slow hover transforms (\`transition: transform 1.2s\`). Custom scrollbars. Fade-in page load animations."
+6. **Structure**: "Immersive full-screen hero with overlapping text. Editorial text blocks offset from image blocks. 3-column product grid with vertical offsets (margin-top) to break the grid line."`,
+            
+            "kidcore": `Act as an expert frontend web designer. Create a web page with a 'Kidcore' / Indie visual style. This aesthetic is high-energy, nostalgic for childhood, and uses primary colors and sticker-like elements. 
+
+**Color Palette:** Use #ff4d4d (bright red), #4d79ff (bright blue), #ffeb3b (yellow), #4caf50 (green), and #fffbe6 (bg). 
+
+**Typography:** Use 'Comic Sans MS', 'Chalkboard SE', or 'Marker Felt' (playful/handwritten). 
+
+**Key CSS Features:** 
+- Hard, solid borders (e.g., 3px solid black) with no softening.
+- 'Hard' box-shadows (no blur radius) to create a flat, pop-out sticker effect.
+- CSS transforms (rotate) to make elements look haphazardly placed.
+- Radial gradients to create polka-dot backgrounds.
+- Marquee animations (infinite scrolling text) and clip-paths for shapes.`
+        };
+
+        const dialog = document.getElementById('promptDialog');
+        const modalTitle = document.getElementById('modalTitle');
+        const promptContent = document.getElementById('promptContent');
+        const searchInput = document.getElementById('searchInput');
+        let currentPromptRaw = ""; // Store raw text for copying
+
+        // Make functions globally available
+        window.openModal = function(designKey) {
+            const prompt = PROMPTS[designKey];
+            currentPromptRaw = prompt; // Save for clipboard
+            const title = designKey.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            
+            modalTitle.textContent = title;
+            // Use Marked.js to parse content
+            promptContent.innerHTML = marked.parse(prompt);
+            dialog.showModal();
+        }
+
+        window.closeModal = function() {
+            dialog.close();
+        }
+
+        window.copyPrompt = function() {
+            // Copy the RAW markdown text, not the rendered HTML
+            navigator.clipboard.writeText(currentPromptRaw).then(() => {
+                const btn = document.querySelector('.modal-footer .btn-primary');
+                const originalText = btn.textContent;
+                btn.textContent = "Copied! ✨";
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = currentPromptRaw;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const btn = document.querySelector('.modal-footer .btn-primary');
+                const originalText = btn.textContent;
+                btn.textContent = "Copied! ✨";
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Close modal when clicking backdrop
+        dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) {
+                closeModal();
+            }
+        });
+
+        // Search Functionality
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            const sections = document.querySelectorAll('.section');
+
+            cards.forEach(card => {
+                const searchData = card.getAttribute('data-search').toLowerCase();
+                if (searchData.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Hide empty sections
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.card[style="display: flex;"]');
+                const allCards = section.querySelectorAll('.card');
+                
+                // If we are searching (term not empty) and no cards visible, hide section
+                if (term !== '' && Array.from(allCards).every(c => c.style.display === 'none')) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: High-end Soft Minimal aesthetic. Polished, airy, skincare-brand vibe. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE | Soft Minimal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-offwhite: #FAFAFA;
+            --white: #FFFFFF;
+            --text-dark: #222222;
+            --text-grey: #666666;
+            --accent-gold: #C5A059;
+            --glass-border: rgba(0,0,0,0.04);
+            --soft-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Abstract blurred gradients background */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(255, 240, 245, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 90% 60%, rgba(230, 240, 255, 0.6) 0%, transparent 40%);
+            filter: blur(60px);
+        }
+
+        /* Header */
+        header {
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .brand {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover { color: var(--text-dark); }
+
+        .btn-pill {
+            padding: 10px 24px;
+            background-color: var(--text-dark);
+            color: var(--white);
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-pill:hover { transform: scale(1.02); }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(to bottom, #222, #444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-grey);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        /* Floating Cards */
+        .grid-section {
+            padding: 100px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--soft-shadow);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            aspect-ratio: 4/5;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-visual {
+            width: 100%;
+            height: 60%;
+            background-color: #F5F5F5;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #ddd;
+            margin-bottom: 24px;
+        }
+
+        .card-meta span {
+            display: block;
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-grey);
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .circle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .circle-btn:hover {
+            border-color: var(--text-dark);
+            background-color: var(--text-dark);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            h1 { font-size: 3rem; }
+            .grid { grid-template-columns: 1fr; }
+            header { padding: 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <header>
+        <div class="brand">LUMIÈRE</div>
+        <nav class="nav-links">
+            <a href="#" class="nav-link">Shop</a>
+            <a href="#" class="nav-link">Routine</a>
+            <a href="#" class="nav-link">Journal</a>
+            <a href="#" class="nav-link">About</a>
+        </nav>
+        <a href="#" class="btn-pill">Cart (0)</a>
+    </header>
+
+    <section class="hero">
+        <div>
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 20px; color: #888;">The Essentials Collection</div>
+            <h1>Less but<br>Better.</h1>
+            <p class="subtitle">A curated approach to modern skincare. <br>Clinically proven, consciously crafted.</p>
+            <a href="#" class="btn-pill" style="padding: 16px 40px; font-size: 1rem;">Shop The Set</a>
+        </div>
+    </section>
+
+    <section class="grid-section">
+        <div class="grid">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-visual">
+                    <!-- Placeholder visual -->
+                    <div style="width: 60px; height: 120px; background: #E0E0E0; border-radius: 30px;"></div>
+                </div>
+                <div class="card-meta">
+                    <span class="card-label">Step 01</span>
+                    <span class="card-title">The Cleanser</span>
+                </div>
+                <div class="circle-btn">→</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-visual">
+                    <div style="width: 80px; height: 80px; background: #E0E0E0; border-radius: 50%;"></div>
+                </div>
+                <div class="card-meta">
+                    <span class="card-label">Step 02</span>
+                    <span class="card-title">The Serum</span>
+                </div>
+                <div class="circle-btn">→</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-visual">
+                    <div style="width: 100px; height: 60px; background: #E0E0E0; border-radius: 4px;"></div>
+                </div>
+                <div class="card-meta">
+                    <span class="card-label">Step 03</span>
+                    <span class="card-title">The Moisturizer</span>
+                </div>
+                <div class="circle-btn">→</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2024 Lumière Inc. New York • Paris • Tokyo
+    </footer>
+
+</body>
+</html>

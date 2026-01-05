@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ABOUTME: Organic Modern aesthetic landing page for 'Earth & Kiln' -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth & Kiln | Sustainable Goods</title>
+    
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;600&family=Karla:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette */
+            --bg-cream: #F9F8F4;
+            --text-earth: #4A4036;
+            --accent-sage: #8DA399;
+            --accent-clay: #C2785C;
+            --accent-sand: #E6DCCD;
+            
+            /* Spacing */
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-earth);
+            font-family: 'Karla', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Grain Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-earth);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: var(--space-md);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            font-size: 1.125rem;
+            color: rgba(74, 64, 54, 0.9);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--text-earth);
+            color: var(--bg-cream);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-family: 'Karla', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--accent-clay);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-earth);
+            color: var(--text-earth);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-earth);
+            color: var(--bg-cream);
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        section {
+            padding: var(--space-xl) 0;
+        }
+
+        /* Navigation */
+        nav {
+            padding: var(--space-md) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-earth);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-earth);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--accent-clay);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            box-shadow: 20px 20px 0 var(--accent-sand);
+            transition: border-radius 10s ease-in-out infinite alternate;
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        /* Zig-Zag Sections */
+        .zigzag {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .zigzag.reverse .text-col {
+            /* Desktop: Keep natural order (Text-Image) for zig-zag effect */
+        }
+
+        .zigzag.reverse .img-col {
+            /* Desktop: Keep natural order (Text-Image) for zig-zag effect */
+        }
+
+        .img-col {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blob-img {
+            width: 90%;
+            max-width: 500px;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        /* Organic Shapes */
+        .shape-1 {
+            border-radius: 63% 37% 30% 70% / 50% 45% 55% 50%;
+        }
+
+        .shape-2 {
+            border-radius: 36% 64% 53% 47% / 46% 41% 59% 54%;
+        }
+
+        .shape-3 {
+            border-radius: 69% 31% 72% 28% / 37% 65% 35% 63%;
+        }
+
+        /* Floating Accents */
+        .decoration {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .leaf-bg {
+            color: var(--accent-sage);
+            width: 150px;
+            height: 150px;
+            top: -20px;
+            right: -20px;
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #EBE7DF;
+            padding: var(--space-lg) 0;
+            margin-top: var(--space-xl);
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero, .zigzag {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .zigzag.reverse .text-col {
+                order: 2;
+            }
+            .zigzag.reverse .img-col {
+                order: 1;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .blob-img {
+                height: 300px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">Earth & Kiln</a>
+            <div class="nav-links">
+                <a href="#">Shop</a>
+                <a href="#">Studio</a>
+                <a href="#">About</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-content">
+                <span style="color: var(--accent-clay); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem;">Slow Living Essentials</span>
+                <h1>Crafted for the conscious home.</h1>
+                <p>Small-batch ceramics, ethically sourced textiles, and botanicals that breathe life into your space. Designed to age beautifully.</p>
+                <a href="#" class="btn">Explore Collection</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=1000&auto=format&fit=crop" alt="Handmade ceramic vases in warm light">
+            </div>
+        </section>
+
+        <!-- Feature 1: Image Left, Text Right -->
+        <section class="zigzag">
+            <div class="img-col">
+                <div class="decoration" style="background: var(--accent-sage); width: 100px; height: 100px; top: 10%; left: 0; border-radius: 50%; filter: blur(40px);"></div>
+                <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=80&w=1000&auto=format&fit=crop" alt="Green monstera plant leaves" class="blob-img shape-1">
+            </div>
+            <div class="text-col">
+                <h2>Rooted in Nature</h2>
+                <p>We believe that your home should be a sanctuary. Our botanical collection is curated to bring the calming influence of the outdoors in. From air-purifying ferns to rare succulents, every plant is nurtured with care before finding its way to you.</p>
+                <a href="#" class="btn btn-outline">View Botanicals</a>
+            </div>
+        </section>
+
+        <!-- Feature 2: Text Left, Image Right -->
+        <section class="zigzag reverse">
+            <div class="text-col">
+                <h2>The Art of Clay</h2>
+                <p>Our ceramics are thrown by hand in our sun-drenched studio. Using locally sourced clay and natural glazes, we create functional art that feels grounding to hold. Imperfectly perfect, just as nature intended.</p>
+                <a href="#" class="btn btn-outline">Meet the Artists</a>
+            </div>
+            <div class="img-col">
+                 <div class="decoration" style="background: var(--accent-clay); width: 120px; height: 120px; bottom: 10%; right: 0; border-radius: 50%; filter: blur(50px);"></div>
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1000&auto=format&fit=crop" alt="Hands holding a warm cup of coffee" class="blob-img shape-2">
+            </div>
+        </section>
+
+         <!-- Feature 3: Image Left, Text Right -->
+         <section class="zigzag">
+            <div class="img-col">
+                <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1000&auto=format&fit=crop" alt="Soft linen bedding in neutral tones" class="blob-img shape-3">
+            </div>
+            <div class="text-col">
+                <h2>Sustainable Comfort</h2>
+                <p>Wrap yourself in textiles that are kind to the planet. Our linens are made from 100% organic flax, stone-washed for softness and durability. Breathable, hypoallergenic, and timelessly stylish.</p>
+                <a href="#" class="btn btn-outline">Shop Linens</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem;">Earth & Kiln</h3>
+            <p style="max-width: 600px; margin: 0 auto 2rem auto;">Curating goods that honor the earth and elevate the everyday. Join our community for slow living inspiration.</p>
+            <div style="margin-bottom: 2rem;">
+                <a href="#" style="color: var(--text-earth); margin: 0 10px;">Instagram</a>
+                <a href="#" style="color: var(--text-earth); margin: 0 10px;">Pinterest</a>
+            </div>
+            <small>&copy; 2024 Earth & Kiln. All rights reserved.</small>
+        </div>
+    </footer>
+
+</body>
+</html>
