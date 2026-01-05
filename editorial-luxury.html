@@ -84,6 +84,14 @@
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.1em;
+            opacity: 1;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .brand.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
         }
 
         .menu-btn {
@@ -91,6 +99,18 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
+        }
+
+        .cart-btn {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 10px 18px;
+            font-weight: 400;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background: #fff;
         }
 
         /* Layout Grid */
@@ -251,7 +271,7 @@
     <nav>
         <div class="menu-btn">Menu</div>
         <div class="brand">MAISON NOIR</div>
-        <div class="menu-btn">Cart (0)</div>
+        <div class="menu-btn cart-btn">Cart (0)</div>
     </nav>
 
     <header class="hero">
@@ -323,6 +343,25 @@
         &copy; 2024 MAISON NOIR. <br><br>
         Paris &bull; Milan &bull; Tokyo
     </footer>
+
+    <script>
+        // Hide brand on scroll
+        const brand = document.querySelector('.brand');
+        let lastScrollY = 0;
+        const scrollThreshold = 100;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > scrollThreshold) {
+                brand.classList.add('hidden');
+            } else {
+                brand.classList.remove('hidden');
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+    </script>
 
 </body>
 </html>
